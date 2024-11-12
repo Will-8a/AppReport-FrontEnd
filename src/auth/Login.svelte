@@ -1,4 +1,36 @@
 <script>
+  let cedula = $state('');
+  let password = $state('');
+
+  const login = async (event) => {
+    event.preventDefault();
+
+    console.log(cedula);
+    console.log(password);
+
+    const endpoint = 'http://192.168.100.4:5000/api/auth/login';
+
+    try{
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: cedula,
+          password: password
+        })
+      });
+
+      const data = await response.json();
+      console.log(data);
+
+      console.log(response);
+      //if (response
+    }
+    catch{
+    };
+  }
 </script>
 
 <div class='background'></div>
@@ -6,12 +38,13 @@
 <div class='container'>
   <h1>Iniciar sesión</h1>
 
-  <form>
+  <form onsubmit={login}>
     <input
       type='text'
       name='cédula'
       placeholder='Cédula'
       autocomplete='username'
+      bind:value={cedula}
       required
     />
 
@@ -20,6 +53,7 @@
       name='password'
       placeholder='Contraseña'
       autocomplete='current-password'
+      bind:value={password}
       required
     />
 

@@ -1,4 +1,44 @@
 <script>
+  let cedula = $state('');
+  let password = $state('');
+  const api_server_hostname = 'https://appreport.pythonanywhere.com'
+
+
+  const login = async (event) => {
+    event.preventDefault();
+
+    const endpoint = api_server_hostname + '/api/auth/login';
+
+    try{
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: cedula,
+          password: password
+        })
+      });
+
+      if (response.ok){
+        const data = await response.json();
+
+        // save info in sessionStorage
+        sessionStorage.setItem('token', data.token);
+        sessionStorage.setItem('user_info', JSON.stringify(data.user_info));
+      }
+      else{
+        // show notification
+        console.log('response is not ok');
+      }
+    }
+
+    catch(error){
+      // show notification
+      console.log(error);
+    };
+  }
 </script>
 
 <div class='background'></div>
@@ -6,12 +46,13 @@
 <div class='container'>
   <h1>Iniciar sesión</h1>
 
-  <form>
+  <form onsubmit={login}>
     <input
       type='text'
       name='cédula'
       placeholder='Cédula'
       autocomplete='username'
+      bind:value={cedula}
       required
     />
 
@@ -20,6 +61,7 @@
       name='password'
       placeholder='Contraseña'
       autocomplete='current-password'
+      bind:value={password}
       required
     />
 

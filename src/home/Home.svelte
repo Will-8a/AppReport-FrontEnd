@@ -10,6 +10,13 @@
     window.location.href = location;
   };
 
+  const logout = (event) => {
+    event.preventDefault();
+    sessionStorage.removeItem('user_info');
+    sessionStorage.removeItem('token');
+    change_location('/#/login');
+  };
+
   if (Object.is(user_info, null)){
     change_location('/#/login');
   }
@@ -30,7 +37,7 @@
   <ul>
     <li><a href="">Reportes</a></li>
     <li><a href="">Contacto</a></li>
-    <li><a href="">Cerrar sesión</a></li>
+    <li><a onclick={logout}>Cerrar sesión</a></li>
   </ul>
 </nav>
 
@@ -134,6 +141,7 @@ nav ul li a {
 li a:hover {
   background: #6c63ff;
   transition: .5s;
+  cursor: pointer;
 }
 
 .checkbtn {

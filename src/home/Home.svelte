@@ -2,6 +2,9 @@
   import AppLogo from '../assets/logo.svg';
   import FaBars from '../assets/bars-solid.svg';
   import WelcomeImage from '../assets/welcome.png';
+
+  // let user_info = JSON.parse('user_info');
+  const user_info = JSON.parse(sessionStorage.getItem('user_info'));
 </script>
 
 <nav>
@@ -29,29 +32,33 @@
 
     <img src={WelcomeImage} alt='bienvenida.jpg' class='imagen' />
 
-    <input
-      type='button'
-      value='Nuevo reporte'
-      class='boton'
-    />
+    {#if user_info.user_type == 3 }
+      <input
+        type='button'
+        value='Nuevo reporte'
+        class='boton'
+      />
+    {/if}
 
     <input
       type='button'
-      value='Ver reportes'
+      value='Reportes'
       class='boton'
     />
 
-    <input
-      type='button'
-      value='Tutores'
-      class='boton'
-    />
+    {#if user_info.user_type == 1 }
+      <input
+        type='button'
+        value='Tutores'
+        class='boton'
+      />
 
-    <input
-      type='button'
-      value='Estudiantes'
-      class='boton'
-    />
+      <input
+        type='button'
+        value='Estudiantes'
+        class='boton'
+      />
+    {/if}
   </div>
 </section>
 

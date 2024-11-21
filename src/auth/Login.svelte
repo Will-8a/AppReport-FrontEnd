@@ -3,7 +3,6 @@
   let password = $state('');
   const api_server_hostname = 'https://appreport.pythonanywhere.com'
 
-
   const login = async (event) => {
     event.preventDefault();
 
@@ -27,6 +26,7 @@
         // save info in sessionStorage
         sessionStorage.setItem('token', data.token);
         sessionStorage.setItem('user_info', JSON.stringify(data.user_info));
+        window.location.href = '/#/'
       }
       else{
         // show notification

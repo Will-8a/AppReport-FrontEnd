@@ -1,6 +1,5 @@
 <script>
   import AppLogo from '../assets/logo.svg';
-  import FaBars from '../assets/bars-solid.svg';
   import WelcomeImage from '../assets/welcome.png';
 
   // let user_info = JSON.parse('user_info');

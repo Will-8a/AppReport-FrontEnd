@@ -5,6 +5,14 @@
 
   // let user_info = JSON.parse('user_info');
   const user_info = JSON.parse(sessionStorage.getItem('user_info'));
+
+  const change_location = (location) => {
+    window.location.href = location;
+  };
+
+  if (Object.is(user_info, null)){
+    change_location('/#/login');
+  }
 </script>
 
 <nav>
@@ -37,6 +45,7 @@
         type='button'
         value='Nuevo reporte'
         class='boton'
+        onclick={() => change_location('/#/reports/new')}
       />
     {/if}
 
@@ -44,6 +53,7 @@
       type='button'
       value='Reportes'
       class='boton'
+      onclick={() => change_location('/#/reports')}
     />
 
     {#if user_info.user_type == 1 }
@@ -51,12 +61,14 @@
         type='button'
         value='Tutores'
         class='boton'
+        onclick={() => change_location('/#/tutors')}
       />
 
       <input
         type='button'
         value='Estudiantes'
         class='boton'
+        onclick={() => change_location('/#/students')}
       />
     {/if}
   </div>

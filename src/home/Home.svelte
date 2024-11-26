@@ -36,7 +36,15 @@
   <ul>
     <li><a href="">Reportes</a></li>
     <li><a href="">Contacto</a></li>
-    <li><a onclick={logout}>Cerrar sesión</a></li>
+    <li>
+      <a
+        href='/#/login'
+        onclick={logout}
+        role='button'
+      >
+        Cerrar sesión
+      </a>
+    </li>
   </ul>
 </nav>
 

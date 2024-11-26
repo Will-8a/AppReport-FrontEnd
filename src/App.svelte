@@ -3,10 +3,12 @@
 
   import Home from './home/Home.svelte';
   import Login from './auth/Login.svelte';
+  import NewReport from './report/new_Report.svelte';
 
   const routes = {
     '/': Home,
-    '/login': Login
+    '/login': Login,
+    '/reports/new': NewReport
   };
 </script>
 

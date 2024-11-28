@@ -1,4 +1,5 @@
 <script>
+  import AppLogo from '../assets/logo.svg';
 </script>
 
 <nav>
@@ -11,7 +12,7 @@
     <div class='burger'></div>
   </label>
 
-  <img src='' alt='logo' class='logo' />
+  <img src={AppLogo} alt='logo' class='logo' />
 
   <ul>
     <li><a href="">Reportes</a></li>
@@ -50,6 +51,7 @@
         placeholder="Numero del reporte"
         class="field"
         id="numeroReporte"
+        min="0"
         required
       />
 
@@ -169,6 +171,13 @@ nav {
   position: absolute;
 }
 
+div.burger{
+  width: 35px;
+  height: 5px;
+  background-color: white;
+  margin: 6px 0;
+}
+
 nav ul {
   float: right;
   /* margin-right: 20px; */
@@ -200,6 +209,7 @@ li a:hover {
   float: right;
   line-height: 80px;
   margin-right: 20px;
+  margin-top: 20px;
   cursor: pointer;
   display: none;
 }

@@ -1,5 +1,70 @@
 <script>
   import AppLogo from '../assets/logo.svg';
+
+  const user_info = JSON.parse(sessionStorage.getItem('user_info'));
+  const student_info = JSON.parse(sessionStorage.getItem('student_info'))
+  const user_token = sessionStorage.getItem('token');
+
+  const api_server_hostname = 'https://appreport.pythonanywhere.com'
+
+  const change_location = (location) => {
+    window.location.href = location;
+  }
+
+  let week_number = $state('');
+  let hours = $state('');
+  let sunday_summary = $state('');
+  let monday_summary = $state('');
+  let tuesday_summary = $state('');
+  let wednesday_summary = $state('');
+  let thursday_summary = $state('');
+  let friday_summary = $state('');
+
+  const logout = (event) => {
+    event.preventDefault();
+    sessionStorage.removeItem('user_info');
+    sessionStorage.removeItem('token');
+    change_location('/#/login');
+  }
+
+  const upload_report = async (event) => {
+    event.preventDefault();
+
+    const endpoint = api_server_hostname + '/api/weekly_reports';
+
+    try{
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'token': user_token
+        },
+        body: JSON.stringify({
+          student_id: student_info.id,
+          tutor_id: student_info.tutor_id,
+          week_number: week_number,
+          hours: hours,
+          sunday_summary: sunday_summary,
+          monday_summary: monday_summary,
+          tuesday_summary: tuesday_summary,
+          wednesday_summary: wednesday_summary,
+          thursday_summary: thursday_summary,
+          friday_summary: friday_summary
+        })
+      });
+
+      if (response.ok){
+        console.log('report uploaded');
+      }
+    }
+    catch(error){
+        console.error(error);
+    };
+  };
+
+  if (Object.is(user_info, null)){
+    change_location('/#/login');
+  }
 </script>
 
 <nav>
@@ -20,6 +85,7 @@
     <li>
       <a
         href='/#/login'
+        onclick={logout}
         role='button'
       >
         Cerrar sesión
@@ -52,6 +118,7 @@
         class="field"
         id="numeroReporte"
         min="0"
+        bind:value={week_number}
         required
       />
 
@@ -65,6 +132,7 @@
         class="field"
         id="horasReporte"
         min="0"
+        bind:value={hours}
         required
       />
 
@@ -77,6 +145,7 @@
       <textarea
         id="resumenDomingo"
         name="resumen_domingo"
+        bind:value={sunday_summary}
       ></textarea>
 
       <br>
@@ -86,6 +155,7 @@
       <textarea
         id="resumenLunes"
         name="resumen_lunes"
+        bind:value={monday_summary}
       ></textarea>
 
       <br>
@@ -95,6 +165,7 @@
       <textarea
         id="resumenMartes"
         name="resumen_martes"
+        bind:value={tuesday_summary}
       ></textarea>
 
       <br>
@@ -104,6 +175,7 @@
       <textarea
         id="resumenMiercoles"
         name="resumen_miercoles"
+        bind:value={wednesday_summary}
       ></textarea>
 
       <br>
@@ -113,6 +185,7 @@
       <textarea
         id="resumenJueves"
         name="resumen_jueves"
+        bind:value={thursday_summary}
       ></textarea>
 
       <br>
@@ -122,6 +195,7 @@
       <textarea
         id="resumenViernes"
         name="resumen_viernes"
+        bind:value={friday_summary}
       ></textarea>
 
       <br>
@@ -132,6 +206,7 @@
           type="button"
           value="Guardar"
           class="botones"
+          onclick={upload_report}
         />
 
         <input

@@ -5,7 +5,8 @@
   const student_info = JSON.parse(sessionStorage.getItem('student_info'))
   const user_token = sessionStorage.getItem('token');
 
-  const api_server_hostname = 'https://appreport.pythonanywhere.com'
+  // const api_server_hostname = 'https://appreport.pythonanywhere.com'
+  const api_server_hostname = 'http://192.168.2.220:5001'
 
   const change_location = (location) => {
     window.location.href = location;

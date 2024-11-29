@@ -1,7 +1,8 @@
 <script>
   let cedula = $state('');
   let password = $state('');
-  const api_server_hostname = 'https://appreport.pythonanywhere.com'
+  // const api_server_hostname = 'https://appreport.pythonanywhere.com'
+  const api_server_hostname = 'http://192.168.2.220:5001'
 
   const login = async (event) => {
     event.preventDefault();
@@ -26,6 +27,10 @@
         // save info in sessionStorage
         sessionStorage.setItem('token', data.token);
         sessionStorage.setItem('user_info', JSON.stringify(data.user_info));
+        sessionStorage.setItem(
+            'student_info',
+            JSON.stringify(data.student_info)
+        );
         window.location.href = '/#/'
       }
       else{

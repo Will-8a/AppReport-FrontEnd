@@ -4,12 +4,14 @@
   import Home from './home/Home.svelte';
   import Login from './auth/Login.svelte';
   import NewUser from './user/new_user.svelte';
+  import NewStudent from './user/new_student.svelte';
   import NewReport from './report/new_Report.svelte';
 
   const routes = {
     '/': Home,
     '/login': Login,
     '/tutors/new': NewUser,
+    '/students/new': NewStudent,
     '/reports/new': NewReport
   };
 </script>

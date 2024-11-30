@@ -344,7 +344,11 @@ li a:hover {
 }
 
 .botones {
+  width: 100% !important;
   cursor: pointer;
+  margin-top: 10px !important;
+  padding:12px  !important;
+  font-size: 16px !important;
 }
 
 /* media queries */

@@ -10,6 +10,12 @@
     window.location.href = location;
   }
 
+  const logout = (event) => {
+    event.preventDefault();
+    sessionStorage.removeItem('user_info');
+    sessionStorage.removeItem('token');
+    change_location('/#/login');
+  }
 
   if (Object.is(user_info, null)){
     change_location('/#/login');
@@ -34,6 +40,7 @@
     <li>
       <a
         href='/#/login'
+        onclick={logout}
         role='button'
       >
         Cerrar sesión

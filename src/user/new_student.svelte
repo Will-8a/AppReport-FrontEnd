@@ -4,6 +4,8 @@
   const user_info = JSON.parse(sessionStorage.getItem('user_info'));
   const user_token = sessionStorage.getItem('token');
 
+  const api_server_hostname = 'https://appreport.pythonanywhere.com'
+
   const change_location = (location) => {
     window.location.href = location;
   }
@@ -13,10 +15,75 @@
     change_location('/#/login');
   }
 
+  let cedula = $state('');
+  let first_name = $state('');
+  let middle_name = $state('');
+  let last_name = $state('');
+  let second_last_name = $state('');
+  let password = $state('');
+  let email = $state('');
+  let cedula_tutor = $state('');
+  let career = $state('INFORMÁTICA');
+
   const logout = (event) => {
     event.preventDefault();
     sessionStorage.clear();
     change_location('/#/login');
+  }
+
+  const upload_info = async (event) => {
+    event.preventDefault()
+
+    const endpoint = api_server_hostname + '/api/admin/student';
+
+    // this function it's only temporal, need to be changed
+    const get_career_id = (carrera) => {
+      switch(carrera){
+        case"INFORMÁTICA":
+          return '1';
+          break;
+        case "ADMINISTRACIÓN DE EMPRESAS":
+          return '2';
+          break;
+        case "ADMINISTRACIÓN DE PERSONAL":
+          return '3';
+          break;
+        default:
+          return 0;
+      }
+    }
+
+    try{
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'token': user_token
+        },
+        body: JSON.stringify({
+          username: cedula,
+          first_name: first_name,
+          middle_name: middle_name,
+          last_name: last_name,
+          second_last_name: second_last_name,
+          password: password,
+          email: email,
+          tutor_username: cedula_tutor,
+          career_id: get_career_id(career)
+        })
+      });
+
+      if (response.ok){
+        console.log('student created');
+        change_location('/#/');
+      }
+      else{
+        console.error(await response.json());
+      }
+    }
+    catch(error){
+      console.error(error);
+    }
   }
 </script>
 
@@ -55,6 +122,7 @@
     type="text"
     name="cedula"
     placeholder="Cedula"
+    bind:value={cedula}
   >
 
   <label for="primerNombre">Primer nombre</label>
@@ -63,6 +131,7 @@
     type="text"
     name="primerNombre"
     placeholder="Primer nombre"
+    bind:value={first_name}
   >
 
   <label for="segundoNombre">Segundo nombre</label>
@@ -71,6 +140,7 @@
     type="text"
     name="segundoNombre"
     placeholder="Segundo nombre"
+    bind:value={middle_name}
   >
 
   <label for="primerApellido">Primer apellido</label>
@@ -79,6 +149,7 @@
     type="text"
     name="primerApellido"
     placeholder="Primer apellido"
+    bind:value={last_name}
   >
 
   <label for="segundoApellido">Segundo apellido</label>
@@ -87,6 +158,7 @@
     type="text"
     name="segundoApellido"
     placeholder="Segundo apellido"
+    bind:value={second_last_name}
   >
 
   <label for="contranena">Contrasena</label>
@@ -95,6 +167,7 @@
     type="text"
     name="contrasena"
     placeholder="Contraseña"
+    bind:value={password}
   >
 
   <label for="email">Email</label>
@@ -103,6 +176,7 @@
     type="email"
     name="email"
     placeholder="Correo Electronico"
+    bind:value={email}
   >
 
  <label for="cedulaTutor">Cedula Tutor</label>
@@ -111,10 +185,11 @@
    type="text"
    name="cedula tutor"
    placeholder="Cedula tutor"
+   bind:value={cedula_tutor}
  >
 
  <label for="carrera">Carrera</label>
- <select id="carrera" name="carrera">
+ <select id="carrera" name="carrera" bind:value={career}>
    <option>INFORMÁTICA</option>
    <option>ADMINISTRACIÓN DE EMPRESAS</option>
    <option>ADMINISTRACIÓN DE PERSONAL</option>
@@ -126,6 +201,7 @@
       type="button"
       value="Guardar datos"
       class="botones"
+      onclick={upload_info}
     >
 
     <input

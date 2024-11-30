@@ -73,16 +73,16 @@
     {#if user_info.user_type == 1 }
       <input
         type='button'
-        value='Tutores'
+        value='Nuevo Tutor'
         class='boton'
-        onclick={() => change_location('/#/tutors')}
+        onclick={() => change_location('/#/tutors/new')}
       />
 
       <input
         type='button'
-        value='Estudiantes'
+        value='Nuevo estudiante'
         class='boton'
-        onclick={() => change_location('/#/students')}
+        onclick={() => change_location('/#/students/new')}
       />
     {/if}
   </div>

@@ -214,6 +214,7 @@
           type="button"
           value="Cancelar"
           class="botones"
+          onclick={() => change_location('/#/')}
         />
       </div>
     </div>

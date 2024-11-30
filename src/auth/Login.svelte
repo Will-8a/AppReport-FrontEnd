@@ -26,6 +26,11 @@
         // save info in sessionStorage
         sessionStorage.setItem('token', data.token);
         sessionStorage.setItem('user_info', JSON.stringify(data.user_info));
+        // need to safe this if the user type is 'student'
+        sessionStorage.setItem(
+            'student_info',
+            JSON.stringify(data.student_info)
+        );
         window.location.href = '/#/'
       }
       else{

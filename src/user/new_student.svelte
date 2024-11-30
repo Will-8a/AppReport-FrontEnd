@@ -12,6 +12,12 @@
   if (Object.is(user_info, null)){
     change_location('/#/login');
   }
+
+  const logout = (event) => {
+    event.preventDefault();
+    sessionStorage.clear();
+    change_location('/#/login');
+  }
 </script>
 
 <nav>
@@ -33,6 +39,7 @@
       <a
         href='/#/login'
         role='button'
+        onclick={logout}
       >
         Cerrar sesión
       </a>

@@ -1,5 +1,19 @@
 <script>
   import AppLogo from '../assets/logo.svg';
+
+  const user_info = JSON.parse(sessionStorage.getItem('user_info'));
+  const user_token = sessionStorage.getItem('token');
+
+  const api_server_hostname = 'https://appreport.pythonanywhere.com'
+
+  const change_location = (location) => {
+    window.location.href = location;
+  }
+
+
+  if (Object.is(user_info, null)){
+    change_location('/#/login');
+  }
 </script>
 
 <nav>

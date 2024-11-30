@@ -1,6 +1,5 @@
 <script>
   import AppLogo from '../assets/logo.svg';
-
 </script>
 
 <nav>
@@ -113,4 +112,151 @@
 </div>
 
 <style>
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: 'Play', sans-serif;
+}
+
+nav {
+  background: #9e99ff;
+  height: 80px;
+  width: 100%;
+  position: fixed;
+  top: 0
+}
+
+.container{
+  padding: 10px;
+  height: 300px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin-top: 104px;
+}
+
+h1{
+  font-family:'Play', sans-serif;
+  width: 90%;
+  color: #000000;
+  font-size: 32px;
+  margin: 28px auto;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+input {
+  padding: 12px 0;
+  margin-bottom: 10px ;
+  border-radius: 5px;
+  border: 2px solid #8B8B8B;
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+  transition: border .2s, background-color .2s;
+}
+
+.logo {
+  padding-left: 20px;
+  padding-top: 20px;
+  height: 60px;
+  position: absolute;
+}
+
+div.burger{
+  width: 35px;
+  height: 5px;
+  background-color: white;
+  margin: 6px 0;
+}
+
+nav ul {
+  float: right;
+}
+
+nav ul li {
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
+}
+
+nav ul li a {
+  color: #fff;
+  font-size: 18px;
+  padding: 7px 13px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+li a:hover {
+  background: #6c63ff;
+  transition: .5s;
+}
+
+.checkbtn {
+  font-size: 30px;
+  color: #fff;
+  float: right;
+  line-height: 80px;
+  margin-right: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  display: none;
+}
+
+#check {
+  display: none;
+}
+
+.botones {
+  width: 100% !important;
+  cursor: pointer;
+  margin-top: 10px !important;
+}
+
+/* media queries */
+
+@media (max-width: 952px) {
+  nav ul li a {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 858px) {
+  .checkbtn {
+    display: block;
+  }
+
+  ul {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #2c3e50;
+    top: 80px;
+    right: -100%;
+    text-align: center;
+    transition: all .5s;
+  }
+
+  nav ul li {
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+
+  nav ul li a {
+    font-size: 20px;
+  }
+
+  li a:hover {
+    background: none;
+    color: #6c63ff;
+  }
+
+  #check:checked~ul {
+    right: 0;
+  }
+}
 </style>

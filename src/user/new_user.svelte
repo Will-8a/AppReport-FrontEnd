@@ -6,6 +6,14 @@
 
   const api_server_hostname = 'https://appreport.pythonanywhere.com'
 
+  let cedula = $state('');
+  let first_name = $state('');
+  let middle_name = $state('');
+  let last_name = $state('');
+  let second_last_name = $state('');
+  let password = $state('');
+  let email = $state('');
+
   const change_location = (location) => {
     window.location.href = location;
   }
@@ -17,9 +25,46 @@
     change_location('/#/login');
   }
 
+  // redirect to login page if user info is 'null' in sessionStorage
   if (Object.is(user_info, null)){
     change_location('/#/login');
   }
+
+  const upload_info = async (event) => {
+    event.preventDefault();
+
+    const endpoint = api_server_hostname + '/api/admin/tutor';
+
+    try{
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'token': user_token
+        },
+        body: JSON.stringify({
+          username: cedula,
+          first_name: first_name,
+          middle_name: middle_name,
+          last_name: last_name,
+          second_last_name: second_last_name,
+          password: password,
+          email: email
+        })
+      });
+
+      if (response.ok){
+        console.log('user created');
+        change_location('/#/');
+      }
+      else{
+        console.error('error');
+      }
+    }
+    catch(error){
+      console.error(error);
+    }
+  };
 </script>
 
 <nav>
@@ -57,6 +102,7 @@
     type="text"
     name="cedula"
     placeholder="Cedula"
+    bind:value={cedula}
   >
 
   <label for="primerNombre">Primer nombre</label>
@@ -65,6 +111,7 @@
     type="text"
     name="primerNombre"
     placeholder="Primer nombre"
+    bind:value={first_name}
   >
 
   <label for="segundoNombre">Segundo nombre</label>
@@ -73,6 +120,7 @@
     type="text"
     name="segundoNombre"
     placeholder="Segundo nombre"
+    bind:value={middle_name}
   >
 
   <label for="primerApellido">Primer apellido</label>
@@ -81,6 +129,7 @@
     type="text"
     name="primerApellido"
     placeholder="Primer apellido"
+    bind:value={last_name}
   >
 
   <label for="segundoApellido">Segundo apellido</label>
@@ -89,6 +138,7 @@
     type="text"
     name="segundoApellido"
     placeholder="Segundo apellido"
+    bind:value={second_last_name}
   >
 
   <label for="contranena">Contrasena</label>
@@ -97,6 +147,7 @@
     type="text"
     name="contrasena"
     placeholder="Contraseña"
+    bind:value={password}
   >
 
   <label for="email">Email</label>
@@ -105,6 +156,7 @@
     type="email"
     name="email"
     placeholder="Correo Electronico"
+    bind:value={email}
   >
 
   <div>
@@ -113,6 +165,7 @@
       type="button"
       value="Guardar datos"
       class="botones"
+      onclick={upload_info}
     >
 
     <input
@@ -128,6 +181,7 @@
       type="button"
       value="Cerrar"
       class="botones"
+      onclick={() => change_location('/#/')}
     >
   </div>
 </div>

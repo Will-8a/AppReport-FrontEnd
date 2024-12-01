@@ -1,5 +1,74 @@
 <script>
   import AppLogo from '../assets/logo.svg';
+  import { onMount }  from 'svelte';
+
+  let { params } = $props();
+  let current_page_number = $state(parseInt(params.page_number));
+  let weekly_reports = $state([]);
+
+  const user_token = sessionStorage.getItem('token');
+
+  const api_server_hostname = 'https://appreport.pythonanywhere.com'
+
+
+  const fetch_reports_list = async (current_page_number) => {
+    let endpoint = api_server_hostname + '/api/weekly_reports';
+
+    const query_params = new URLSearchParams({
+      page: current_page_number
+    })
+
+    // set url with params
+    const url_with_params = `${endpoint}?${query_params.toString()}`;
+
+    const requests = new Request(url_with_params, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type':'application/json',
+        'token': user_token
+      })
+    });
+
+    try{
+      const response = await fetch(requests);
+
+      const data = await response.json()
+      if (typeof data.message === typeof 'string'){
+        weekly_reports = {};
+      }
+      else{
+        weekly_reports = data.message;
+      }
+    }
+    catch(error){
+      console.error(erro);
+    }
+  }
+
+  onMount(() => fetch_reports_list(current_page_number))
+
+  // update the url without recharging
+  const update_url = (page_number) => {
+    history.pushState(null, '', `/#/reports/p/${page_number}`);
+  }
+
+  const next_page = (event) => {
+    event.preventDefault();
+
+    current_page_number += 1;
+    update_url(current_page_number);
+    fetch_reports_list(current_page_number);
+  }
+
+  const previous_page = (event) => {
+    event.preventDefault();
+
+    if (current_page_number > 1) {
+      current_page_number -= 1;
+      update_url(current_page_number);
+      fetch_reports_list(current_page_number);
+    }
+  }
 </script>
 
 <nav>
@@ -45,15 +114,35 @@
         </tr>
       </thead>
       <tbody>
+      {#each weekly_reports as weekly_report}
+        <tr>
+          <td>{weekly_report.report_id}</td>
+          <td>{weekly_report.week_number}</td>
+          <td>{weekly_report.username}</td>
+          <td>{weekly_report.first_name + ' ' + weekly_report.last_name}</td>
+          <td></td>
+          {#if weekly_report.tutor_approval === 0}
+          <td>Aprobado</td>
+          {:else}
+          <td>Desaprobado</td>
+          {/if}
+          {#if weekly_report.coordinator_approval === 0}
+          <td>Aprobado</td>
+          {:else}
+          <td>Desaprobado</td>
+          {/if}
+          <td><button>Leer reporte</button></td>
+        </tr>
+      {/each}
       </tbody>
     </table>
   </div>
 
   <div class="padre-paginacion">
     <div class="paginacion">
-      <a href="">&laquo;</a>
-      <a href="" class="activo">1</a>
-      <a href="">&raquo;</a>
+      <a href="" onclick={previous_page}>&laquo;</a>
+      <a href="" class="activo">{current_page_number}</a>
+      <a href="" onclick={next_page}>&raquo;</a>
     </div>
   </div>
 </section>

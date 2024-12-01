@@ -97,6 +97,10 @@
     sessionStorage.clear();
     change_location('/#/login');
   }
+
+  const read_report = (report_id) => {
+    change_location(`/#/reports/${report_id}`);
+  }
 </script>
 
 <nav>
@@ -168,7 +172,13 @@
           {:else}
           <td>Desaprobado</td>
           {/if}
-          <td><button>Leer reporte</button></td>
+          <td>
+            <button
+              onclick={() => read_report(weekly_report.report_id)}
+            >
+              Leer reporte
+            </button>
+          </td>
         </tr>
       {/each}
       </tbody>

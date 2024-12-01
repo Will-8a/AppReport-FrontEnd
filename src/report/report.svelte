@@ -1,8 +1,22 @@
 <script>
   import AppLogo from '../assets/logo.svg';
+  import { onMount }  from 'svelte';
+
+  let { params } = $props();
+  let report_id = $state(params.report_id);
 
   const user_info = JSON.parse(sessionStorage.getItem('user_info'));
   const user_token = sessionStorage.getItem('token');
+  const api_server_hostname = 'https://appreport.pythonanywhere.com'
+
+  let week_number = $state();
+  let hours = $state();
+  let sunday_summary = $state();
+  let monday_summary = $state();
+  let tuesday_summary = $state();
+  let wednesday_summary = $state();
+  let thursday_summary = $state();
+  let friday_summary = $state();
 
   const change_location = (location) => {
     window.location.href = location;
@@ -18,6 +32,37 @@
     sessionStorage.clear();
     change_location('/#/login');
   }
+
+  const fetch_report_info = async () => {
+    const endpoint = `${api_server_hostname}/api/weekly_reports/${report_id}`;
+
+    const requests = new Request(endpoint, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type':'application/json',
+        'token': user_token
+      })
+    });
+
+    try{
+      const response = await fetch(requests);
+      const data = await response.json()
+
+      week_number = data.message.week_number
+      hours = data.message.hours
+      sunday_summary = data.message.sunday_summary
+      monday_summary = data.message.monday_summary
+      tuesday_summary = data.message.tuesday_summary
+      wednesday_summary = data.message.wednesday_summary
+      thursday_summary = data.message.thursday_summary
+      friday_summary = data.message.friday_summary
+    }
+    catch(error){
+      console.error(error);
+    }
+  }
+
+  onMount(() => fetch_report_info())
 </script>
 
 <nav>

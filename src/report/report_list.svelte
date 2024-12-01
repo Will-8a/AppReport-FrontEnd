@@ -172,6 +172,13 @@ nav {
   position: absolute;
 }
 
+div.burger{
+  width: 35px;
+  height: 5px;
+  background-color: white;
+  margin: 6px 0;
+}
+
 nav ul {
   float: right;
 }
@@ -200,6 +207,7 @@ li a:hover {
   color: #fff;
   float: right;
   line-height: 80px;
+  margin-top: 20px;
   margin-right: 20px;
   cursor: pointer;
   display: none;

@@ -1,4 +1,7 @@
 <script>
+  import { notify } from '../stores/notification_store';
+  import Notification from '../components/Notification.svelte';
+
   import AppLogo from '../assets/logo.svg';
 
   const user_info = JSON.parse(sessionStorage.getItem('user_info'));
@@ -54,18 +57,20 @@
       });
 
       if (response.ok){
-        console.log('user created');
+        notify('Usuario creado exitosamente', 'success')
         change_location('/#/');
       }
       else{
-        console.error('error');
+        notify('Ocurrio un error interno', 'failed')
       }
     }
     catch(error){
-      console.error(error);
+      notify('Ocurrio un error interno', 'failed')
     }
   };
 </script>
+
+<Notification />
 
 <nav>
   <input type='checkbox' id='check'/>

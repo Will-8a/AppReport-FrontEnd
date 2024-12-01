@@ -118,6 +118,7 @@
         min="0"
         required
         readonly
+        bind:value={week_number}
       />
 
       <label for="horasReporte" class="texthorastotales">
@@ -132,6 +133,7 @@
         min="0"
         required
         readonly
+        bind:value={hours}
       />
 
       <h2>Resumen de actividades</h2>
@@ -144,6 +146,7 @@
         id="resumenDomingo"
         name="resumen_domingo"
         readonly
+        bind:value={sunday_summary}
       ></textarea>
 
       <br>
@@ -154,6 +157,7 @@
         id="resumenLunes"
         name="resumen_lunes"
         readonly
+        bind:value={monday_summary}
       ></textarea>
 
       <br>
@@ -164,6 +168,7 @@
         id="resumenMartes"
         name="resumen_martes"
         readonly
+        bind:value={tuesday_summary}
       ></textarea>
 
       <br>
@@ -174,6 +179,7 @@
         id="resumenMiercoles"
         name="resumen_miercoles"
         readonly
+        bind:value={wednesday_summary}
       ></textarea>
 
       <br>
@@ -184,6 +190,7 @@
         id="resumenJueves"
         name="resumen_jueves"
         readonly
+        bind:value={thursday_summary}
       ></textarea>
 
       <br>
@@ -194,6 +201,7 @@
         id="resumenViernes"
         name="resumen_viernes"
         readonly
+        bind:value={friday_summary}
       ></textarea>
 
       <br>

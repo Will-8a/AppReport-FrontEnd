@@ -1,4 +1,6 @@
 <script>
+  import Notification from '../components/Notification.svelte';
+
   import AppLogo from '../assets/logo.svg';
   import WelcomeImage from '../assets/welcome.png';
 
@@ -20,6 +22,8 @@
     change_location('/#/login');
   }
 </script>
+
+<Notification />
 
 <nav>
   <input type='checkbox' id='check'/>

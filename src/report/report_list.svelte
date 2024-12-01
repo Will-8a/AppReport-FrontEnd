@@ -23,14 +23,19 @@
   const fetch_reports_list = async (current_page_number) => {
     let endpoint = api_server_hostname + '/api/weekly_reports';
     let student_id = null
+    let tutor_id = null
 
     if (user_info.user_type === 3){
       const student_info = JSON.parse(sessionStorage.getItem('student_info'))
       student_id = student_info.id
     }
+    else if (user_info.user_type === 2){
+      tutor_id = user_info.id;
+    }
 
     const query_params = new URLSearchParams({
       page: current_page_number,
+      tutor_id: tutor_id,
       student_id: student_id  // i don't think that this is right
     })
 

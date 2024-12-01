@@ -27,6 +27,9 @@
         sessionStorage.setItem('token', data.token);
         sessionStorage.setItem('user_info', JSON.stringify(data.user_info));
         // need to safe this if the user type is 'student'
+        if (typeof data.student_info === typeof undefined){
+          data.student_info = {};
+        }
         sessionStorage.setItem(
             'student_info',
             JSON.stringify(data.student_info)

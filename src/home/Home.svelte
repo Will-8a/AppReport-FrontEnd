@@ -67,7 +67,7 @@
       type='button'
       value='Reportes'
       class='boton'
-      onclick={() => change_location('/#/reports')}
+      onclick={() => change_location('/#/reports/p/1')}
     />
 
     {#if user_info.user_type == 1 }

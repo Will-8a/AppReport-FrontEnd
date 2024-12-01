@@ -62,6 +62,32 @@
     }
   }
 
+  const update_report_status = async (status) => {
+    // the value of status has to be 1 (approve) or 2 (disapprove)
+    const endpoint = `${api_server_hostname}/api/weekly_reports/${report_id}`;
+
+    try{
+      const response = await fetch(endpoint, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'token': user_token
+        },
+        body: JSON.stringify({
+          update_status: true,
+          status: status
+        })
+      });
+
+      if (response.ok){
+        console.log('report status updated');
+      }
+    }
+    catch(error){
+        console.error(error);
+    }
+  }
+
   onMount(() => fetch_report_info())
 </script>
 
@@ -213,6 +239,7 @@
           type="button"
           value="Aprobar"
           class="botones"
+          onclick={() => update_report_status(1)}
         />
 
         <input
@@ -220,6 +247,7 @@
           type="button"
           value="Desaprobar"
           class="botones"
+          onclick={() => update_report_status(2)}
         />
         {/if }
 

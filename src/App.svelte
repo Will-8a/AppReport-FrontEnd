@@ -13,9 +13,10 @@
     '/login': Login,
     '/tutors/new': NewUser,
     '/students/new': NewStudent,
-    '/reports': ReportsList,
+    '/reports/p/:page_number': ReportsList,
     '/reports/new': NewReport
   };
+
 </script>
 
 <Router {routes} />

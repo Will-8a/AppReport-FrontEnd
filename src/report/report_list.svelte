@@ -11,6 +11,10 @@
   const api_server_hostname = 'https://appreport.pythonanywhere.com'
 
 
+  const change_location = (location) => {
+    window.location.href = location;
+  }
+
   const fetch_reports_list = async (current_page_number) => {
     let endpoint = api_server_hostname + '/api/weekly_reports';
 
@@ -41,7 +45,7 @@
       }
     }
     catch(error){
-      console.error(erro);
+      console.error(error);
     }
   }
 
@@ -69,6 +73,13 @@
       fetch_reports_list(current_page_number);
     }
   }
+
+  const logout = (event) => {
+    event.preventDefault();
+
+    sessionStorage.clear();
+    change_location('/#/login');
+  }
 </script>
 
 <nav>
@@ -90,6 +101,7 @@
       <a
         href='/#/login'
         role='button'
+        onclick={logout}
       >
         Cerrar sesión
       </a>

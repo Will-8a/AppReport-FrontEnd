@@ -7,6 +7,7 @@
   import NewStudent from './user/new_student.svelte';
   import ReportsList from './report/report_list.svelte';
   import NewReport from './report/new_Report.svelte';
+  import Report from './report/report.svelte';
 
   const routes = {
     '/': Home,
@@ -14,7 +15,8 @@
     '/tutors/new': NewUser,
     '/students/new': NewStudent,
     '/reports/p/:page_number': ReportsList,
-    '/reports/new': NewReport
+    '/reports/new': NewReport,
+    '/reports/:report_id': Report
   };
 
 </script>

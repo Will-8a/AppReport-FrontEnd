@@ -1,4 +1,7 @@
 <script>
+  import { notify } from '../stores/notification_store';
+  import Notification from '../components/Notification.svelte';
+
   let cedula = $state('');
   let password = $state('');
   const api_server_hostname = 'https://appreport.pythonanywhere.com'
@@ -37,17 +40,25 @@
         window.location.href = '/#/'
       }
       else{
-        // show notification
-        console.log('response is not ok');
+        if (response.status === 401){
+          notify('Contraseña incorrecta', 'failed');
+        }
+        else if (response.status === 404){
+          notify('Usuario no encontrador', 'failed');
+        }
+        else{
+          notify('Ocurrio un error interno', 'failed')
+        }
       }
     }
 
     catch(error){
-      // show notification
-      console.log(error);
+      notify('Ocurrio un error interno', 'failed')
     };
   }
 </script>
+
+<Notification />
 
 <div class='background'></div>
 

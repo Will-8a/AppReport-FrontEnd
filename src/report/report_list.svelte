@@ -154,12 +154,16 @@
           <td>{weekly_report.first_name + ' ' + weekly_report.last_name}</td>
           {/if}
           <td></td>
-          {#if weekly_report.tutor_approval === 0}
+          {#if weekly_report.coordinator_approval === 0}
+          <td>Sin aprobar</td>
+          {:else if weekly_report.coordinator_approval === 1}
           <td>Aprobado</td>
           {:else}
           <td>Desaprobado</td>
           {/if}
-          {#if weekly_report.coordinator_approval === 0}
+          {#if weekly_report.tutor_approval === 0}
+          <td>Sin aprobar</td>
+          {:else if weekly_report.tutor_approval === 1}
           <td>Aprobado</td>
           {:else}
           <td>Desaprobado</td>

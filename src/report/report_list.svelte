@@ -6,6 +6,7 @@
   let current_page_number = $state(parseInt(params.page_number));
   let weekly_reports = $state([]);
 
+  const user_info = JSON.parse(sessionStorage.getItem('user_info'));
   const user_token = sessionStorage.getItem('token');
 
   const api_server_hostname = 'https://appreport.pythonanywhere.com'
@@ -17,9 +18,16 @@
 
   const fetch_reports_list = async (current_page_number) => {
     let endpoint = api_server_hostname + '/api/weekly_reports';
+    let student_id = null
+
+    if (user_info.user_type === 3){
+      const student_info = JSON.parse(sessionStorage.getItem('student_info'))
+      student_id = student_info.id
+    }
 
     const query_params = new URLSearchParams({
-      page: current_page_number
+      page: current_page_number,
+      student_id: student_id  // i don't think that this is right
     })
 
     // set url with params
@@ -116,8 +124,10 @@
         <tr class="cabecera">
           <th>ID</th>
           <th>N° Reporte</th>
+          {#if user_info.user_type !== 3}
           <th>Cedula estudiante</th>
           <th>Nombre estudiante</th>
+          {/if}
           <th>Carrera</th>
           <th>Aprobación tutor</th>
           <th>Aprobación Coordinador</th>
@@ -130,8 +140,10 @@
         <tr>
           <td>{weekly_report.report_id}</td>
           <td>{weekly_report.week_number}</td>
+          {#if user_info.user_type !== 3}
           <td>{weekly_report.username}</td>
           <td>{weekly_report.first_name + ' ' + weekly_report.last_name}</td>
+          {/if}
           <td></td>
           {#if weekly_report.tutor_approval === 0}
           <td>Aprobado</td>

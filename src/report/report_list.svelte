@@ -2,6 +2,9 @@
   import AppLogo from '../assets/logo.svg';
   import { onMount }  from 'svelte';
 
+  import { notify } from '../stores/notification_store';
+  import Notification from '../components/Notification.svelte';
+
   let { params } = $props();
   let current_page_number = $state(parseInt(params.page_number));
   let weekly_reports = $state([]);
@@ -56,13 +59,14 @@
       const data = await response.json()
       if (typeof data.message === typeof 'string'){
         weekly_reports = {};
+        notify('No hay reportes para mostrar en esta pagina', 'failed')
       }
       else{
         weekly_reports = data.message;
       }
     }
     catch(error){
-      console.error(error);
+      notify('Ocurrio un error interno', 'failed');
     }
   }
 
@@ -102,6 +106,8 @@
     change_location(`/#/reports/${report_id}`);
   }
 </script>
+
+<Notification />
 
 <nav>
   <input type='checkbox' id='check'/>

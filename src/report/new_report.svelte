@@ -1,4 +1,7 @@
 <script>
+  import { notify } from '../stores/notification_store';
+  import Notification from '../components/Notification.svelte';
+
   import AppLogo from '../assets/logo.svg';
 
   const user_info = JSON.parse(sessionStorage.getItem('user_info'));
@@ -54,18 +57,24 @@
       });
 
       if (response.ok){
-        console.log('report uploaded');
+        notify('Reporte creado exitosamente', 'success')
+        change_location('/#/');
       }
     }
     catch(error){
-        console.error(error);
+        notify('Ocurrio un error interno', 'failed')
     };
   };
 
   if (Object.is(user_info, null)){
     change_location('/#/login');
   }
+  else if(user_info.user_type !== 3){
+    change_location('/#/');
+  }
 </script>
+
+<Notification />
 
 <nav>
   <input type='checkbox' id='check'/>

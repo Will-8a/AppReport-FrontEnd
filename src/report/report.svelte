@@ -1,4 +1,7 @@
 <script>
+  import { notify } from '../stores/notification_store';
+  import Notification from '../components/Notification.svelte';
+
   import AppLogo from '../assets/logo.svg';
   import { onMount }  from 'svelte';
 
@@ -58,7 +61,7 @@
       friday_summary = data.message.friday_summary
     }
     catch(error){
-      console.error(error);
+      notify('Contraseña incorrecta', 'failed');
     }
   }
 
@@ -80,16 +83,18 @@
       });
 
       if (response.ok){
-        console.log('report status updated');
+        notify('Estatus de reporte actualizado', 'success');
       }
     }
     catch(error){
-        console.error(error);
+      notify('Ocurrio un error interno', 'failed');
     }
   }
 
   onMount(() => fetch_report_info())
 </script>
+
+<Notification />
 
 <nav>
   <input type='checkbox' id='check'/>

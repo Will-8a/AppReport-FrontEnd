@@ -251,11 +251,13 @@
         />
         {/if }
 
+        <!-- its better that the button return to the previous page -->
         <input
           id="botonCerrar"
           type="button"
           value="Cerrar"
           class="botones"
+          onclick={() => change_location('/#/')}
         />
       </div>
     </div>

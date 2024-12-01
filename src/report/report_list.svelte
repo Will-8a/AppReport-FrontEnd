@@ -16,6 +16,10 @@
     window.location.href = location;
   }
 
+  if (Object.is(user_info, null)){
+    change_location('/#/login');
+  }
+
   const fetch_reports_list = async (current_page_number) => {
     let endpoint = api_server_hostname + '/api/weekly_reports';
     let student_id = null

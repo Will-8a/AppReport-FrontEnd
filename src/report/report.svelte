@@ -1,6 +1,23 @@
 <script>
   import AppLogo from '../assets/logo.svg';
 
+  const user_info = JSON.parse(sessionStorage.getItem('user_info'));
+  const user_token = sessionStorage.getItem('token');
+
+  const change_location = (location) => {
+    window.location.href = location;
+  }
+
+  if (Object.is(user_info, null)){
+    change_location('/#/login');
+  }
+
+  const logout = (event) => {
+    event.preventDefault();
+
+    sessionStorage.clear();
+    change_location('/#/login');
+  }
 </script>
 
 <nav>
@@ -22,6 +39,7 @@
       <a
         href='/#/login'
         role='button'
+        onclick={logout}
       >
         Cerrar sesión
       </a>
@@ -136,6 +154,7 @@
       <br>
 
       <div class="btn_box">
+        {#if user_info.user_type !== 3}
         <input
           id="botonAprobar"
           type="button"
@@ -149,6 +168,7 @@
           value="Desaprobar"
           class="botones"
         />
+        {/if }
 
         <input
           id="botonCerrar"

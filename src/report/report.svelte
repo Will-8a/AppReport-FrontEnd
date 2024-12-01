@@ -54,6 +54,7 @@
         id="numeroReporte"
         min="0"
         required
+        readonly
       />
 
       <label for="horasReporte" class="texthorastotales">
@@ -67,6 +68,7 @@
         id="horasReporte"
         min="0"
         required
+        readonly
       />
 
       <h2>Resumen de actividades</h2>
@@ -78,6 +80,7 @@
       <textarea
         id="resumenDomingo"
         name="resumen_domingo"
+        readonly
       ></textarea>
 
       <br>
@@ -87,6 +90,7 @@
       <textarea
         id="resumenLunes"
         name="resumen_lunes"
+        readonly
       ></textarea>
 
       <br>
@@ -96,6 +100,7 @@
       <textarea
         id="resumenMartes"
         name="resumen_martes"
+        readonly
       ></textarea>
 
       <br>
@@ -105,6 +110,7 @@
       <textarea
         id="resumenMiercoles"
         name="resumen_miercoles"
+        readonly
       ></textarea>
 
       <br>
@@ -114,6 +120,7 @@
       <textarea
         id="resumenJueves"
         name="resumen_jueves"
+        readonly
       ></textarea>
 
       <br>
@@ -123,6 +130,7 @@
       <textarea
         id="resumenViernes"
         name="resumen_viernes"
+        readonly
       ></textarea>
 
       <br>
